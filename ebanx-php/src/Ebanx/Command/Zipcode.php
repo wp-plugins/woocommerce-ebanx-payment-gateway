@@ -32,23 +32,23 @@
 namespace Ebanx\Command;
 
 /**
- * Command for the 'refund' action
+ * Command for the 'token' action
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class Refund extends \Ebanx\Command\AbstractCommand
+class Zipcode extends \Ebanx\Command\AbstractCommand
 {
     /**
      * The HTTP method
      * @var string
      */
-    protected $method = 'POST';
+    protected $method = 'GET';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $action = 'refund';
+    protected $action = 'zipcode';
 
     /**
      * Validates the request parameters
@@ -58,19 +58,6 @@ class Refund extends \Ebanx\Command\AbstractCommand
      */
     protected function validate($validator)
     {
-        $validator->validatePresence('operation');
-
-        // Validation for a new refund request
-        if ($this->params['operation'] == 'request')
-        {
-            $validator->validatePresence('hash');
-            $validator->validatePresence('amount');
-            $validator->validatePresence('description');
-        }
-        // Validation a cancel refund request
-        else
-        {
-            $validator->validatePresenceOr('merchant_refund_code', 'refund_id');
-        }
+        $validator->validatePresence('zipcode');
     }
 }
