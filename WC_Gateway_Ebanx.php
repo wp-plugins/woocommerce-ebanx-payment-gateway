@@ -48,10 +48,6 @@ class WC_Gateway_Ebanx extends WC_Payment_Gateway
     $this->description         = $this->get_option('description');
     $this->merchant_key        = $this->get_option('merchant_key');
     $this->test_mode           = ($this->get_option('test_mode') == 'yes');
-    $this->enable_boleto       = $this->paymentMethodisEnabled('boleto');
-    $this->enable_tef          = $this->paymentMethodisEnabled('tef');
-    $this->enable_cc           = $this->paymentMethodisEnabled('creditcards');
-    $this->enable_pagoefectivo = $this->paymentMethodisEnabled('pagoefectivo');
     $this->enable_installments = $this->get_option('enable_installments') == 'yes';
     $this->max_installments    = intval($this->get_option('max_installments'));
     $this->interest_mode       = $this->get_option('interest_mode');
@@ -72,17 +68,6 @@ class WC_Gateway_Ebanx extends WC_Payment_Gateway
     ));
 
     add_action('woocommerce_update_options_payment_gateways_' . $this->id, array(&$this, 'process_admin_options'));
-  }
-
-  /**
-   * Checks if a payment method is enabled
-   * @param  string $paymentMethod The payment method name
-   * @return boolean
-   */
-  protected function paymentMethodisEnabled($paymentMethod)
-  {
-    $options = $this->get_option('payment_methods');
-    return in_array($paymentMethod, $options);
   }
 
   /**
