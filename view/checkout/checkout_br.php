@@ -9,47 +9,14 @@
 
 <form method="POST" id="ebanx-checkout-form">
   <ul class="form-list" id="payment_ebanx_direct">
-    <?php if ($this->enable_business_checkout): ?>
-      <div class="person-selector">
-        <input type="radio" name="ebanx[person_type]" id="person_type_personal" value="personal" <?php if ($personType == 'personal') echo 'checked="checked"' ?>>
-        <label for="person_type_personal">Pessoa física</label>
-        <input type="radio" name="ebanx[person_type]" id="person_type_business" value="business" <?php if ($personType == 'business') echo 'checked="checked"' ?>>
-        <label for="person_type_business">Pessoa jurídica</label>
-      </div>
-
-      <div class="person-business <?php if ($personType == 'personal') echo 'person-hidden' ?>">
-        <?php require_once $this->getTemplatePath('/checkout/_person_business_fields.php') ?>
-      </div>
-
-      <div class="person-personal <?php if ($personType == 'business') echo 'person-hidden' ?>">
-        <?php require_once $this->getTemplatePath('/checkout/_person_personal_fields.php') ?>
-      </div>
-    <?php else: ?>
-      <?php require_once $this->getTemplatePath('/checkout/_person_personal_fields.php') ?>
-    <?php endif ?>
-
     <li>
       <label for="payment-method" class="required">Método de pagamento</label>
       <div class="input-box ebanx-methods">
         <ul>
-          <?php if ($this->enable_boleto && $orderCountry == 'BR'): ?>
-          <li class="payment-method active payment-method-toggle">
-            <input type="radio" name="ebanx[method]" id="ebanx_method_boleto" value="boleto" checked="checked" />
-            <label for="ebanx_method_boleto">Boleto bancário</label>
-          </li>
-          <?php endif ?>
-
           <?php if ($this->enable_cc && $orderCountry == 'BR'): ?>
           <li class="payment-method payment-method-toggle">
             <input type="radio" name="ebanx[method]" id="ebanx_method_creditcard" value="creditcard" />
             <label for="ebanx_method_creditcard">Cartão de crédito</label>
-          </li>
-          <?php endif ?>
-
-          <?php if ($this->enable_tef && $orderCountry == 'BR'): ?>
-          <li class="payment-method payment-method-toggle">
-            <input type="radio" name="ebanx[method]" id="ebanx_method_tef" value="tef" />
-            <label for="ebanx_method_tef">Trasferência bancária</label>
           </li>
           <?php endif ?>
         </ul>
@@ -131,7 +98,6 @@
           </div>
         </div>
       </li>
-
       <?php if ($this->enable_installments): ?>
         <li class="ebanx-cc-field">
           <label for="ebanx_cc_installments" class="required">Parcelas</label>
@@ -146,22 +112,6 @@
           </div>
         </li>
       <?php endif ?>
-    <?php endif ?>
-
-    <?php if ($this->enable_tef && $orderCountry == 'BR'): ?>
-      <li class="ebanx-tef-field">
-        <label for="ebanx_tef_bank" class="required">Banco</label>
-        <div class="input-box">
-          <select id="ebanx_tef_bank" name="ebanx[tef_bank]" title="Credit Card Type" class="required-entry" autocomplete="off">
-            <option value="" selected="selected">Por favor selecione</option>
-            <option value="banrisul">Banrisul</option>
-            <option value="bradesco">Bradesco</option>
-            <option value="bancodobrasil">Banco do Brasil</option>
-            <option value="hsbc">HSBC</option>
-            <option value="itau">Itaú</option>
-          </select>
-        </div>
-      </li>
     <?php endif ?>
 
     <li class="buttons">
